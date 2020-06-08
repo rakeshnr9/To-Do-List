@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@469&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
+<body background="images/img3.png">
+   <header>
+
+
+      <div class="head-tag">
+
+   <a href="#">To Do List</a>
+   <a href="index.html">Log Out</a>
+
+
+</div>
+
+   </header>
+<div id="results">
+   <button id="button1">Click here to display the To Do List</button>
+   <table id="myTable">
+      <ul id=".chkbox" type="checkbox">
+
+      </ul>
+      </table>
+   </div>
+
+
+
+
+   <script>
+
+
+
+
+
+
+
+      $('#button1').click(function () {
+               $.ajax({
+                   url: "https://jsonplaceholder.typicode.com/todos"
+               }).done(function (data) {
+                   console.log(data);
+                   //Display the table
+                   var table = document.getElementById('myTable');
+                   var output = "";
+                   $('#myTable')
+                       .append(data.map(function (val) {
+                         if(val.completed== true){
+                         output+="<tr>\n";
+                         output += "<th scope=\"row\">" + val.id + "</th>\n";
+                         output += "<td>" + val.title + "</td>\n" ;
+                           output += "<td>" + "<input type = 'checkbox' checked disabled > "  +"</td>\n" ;
+                         output += "</tr>\n";
+                         }
+                         else{
+                           output+="<tr>\n";
+                         output += "<th scope=\"row\">" + val.id + "</th>\n";
+                         output += "<td>" + val.title + "</td>\n" ;
+                           output += "<td>" + "<input type = 'checkbox' > "  +"</td>\n" ;
+                         output += "</tr>\n";
+                         }
+                       }));
+                       table.innerHTML+=output;
+               });
+               $('#button1').hide();
+
+
+               let count = 0;
+$("#myTable").on("change", ":checkbox", function () {
+
+
+    var chkstatus = this.checked;
+    var promise = new Promise(function (resolve) {
+      if(chkstatus === true)
+         count++ ;
+else
+if(chkstatus === false)
+         count-- ;
+        console.log(count, chkstatus);
+
+
+        if(count == 5){
+           resolve("Congrats! 5 Tasks have been successfully completed!");
+}
+    });
+      promise
+      .then(function(r){
+       alert(r);
+       count = 0;
+  });
+ });
+           });
+
+
+
+
+
+
+
+
+
+   </script>
+
+
+
+</body>
+
+
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@469&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+</head>
+
+<body background="images/img2.png" >
+
+    <h1 class="text-center" style="color:greenyellow;">To Do List Web Application</h1><br><br>
+<div class="login-form">
+    <form id="form"  onsubmit=" return validate()" >
+        <h2 class="text-center" style="color:rgb(0, 225, 255);">Sign In</h2><br><br><br><br><br>
+        <div class="form-group">
+            <input type="text" class="form-control" id="uname" placeholder="Username" required="required">
+            <label for="error" id="error"></label><br>
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" id="pass" placeholder="Password" required="required">
+            <label for="error2" id="error2"></label><br>
+        </div>
+        <div class="form-group">
+            <button type="submit" id="submit" class="btn btn-primary btn-block"  >Log in</button>
+            <label for="verify" id="verify"></label><br>
+        </div>
+    </form>
+</div>
+
+<script >
+const username = document.getElementById("uname");
+const password = document.getElementById("pass");
+function validate()
+{
+    if(username.value.trim()=="")
+    {
+       alert("Blank Username");
+      uname.style.border = "solid 3px red";
+      error.innerHTML="Blank Username";
+      error.style.color= "red";
+      setTimeout(function(){
+        error.innerHTML = "";
+        uname.style.border = "";
+    }, 3000);
+      return false;
+    }
+    else if(password.value.trim()=="")
+    {
+      alert("Blank Password");
+      pass.style.border = "solid 3px red";
+      error2.innerHTML="Blank Password";
+      error2.style.color= "red";
+      setTimeout(function(){
+        error2.innerHTML = "";
+        pass.style.border = "";
+    }, 3000);
+      return false;
+    }
+    else
+  {
+    var promise = new Promise(function(resolve,reject){
+      var x = username.value;
+      var y = password.value;
+      if(x=="admin" && y=="12345"){
+        resolve();
+        document.write("Redirecting to the main page in 2 seconds...");
+            setTimeout(function(){window.location = "home.html";}, 2000);
+            return true;
+      }
+      else
+      {
+              alert("Wrong Username or Password");
+              verify.innerHTML="Username/Password Error";
+              verify.style.color= "red";
+             reject();
+              return false;
+      }
+    });
+      promise
+      .then(function(){
+      console.log("approved")
+       })
+      .catch(function(){
+          console.log("rejected");
+      })
+  }
+}
+</script>
+
+</body>
+</html>
